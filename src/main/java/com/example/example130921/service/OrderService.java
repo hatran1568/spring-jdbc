@@ -18,4 +18,11 @@ public class OrderService {
         return orderRepository.getAllOrders();
     }
 
+    public Optional<Order> findById(int id){
+        return orderRepository.findById(id);
+    }
+
+    public void add(Order order){
+        orderRepository.add(order);
+    }
 }

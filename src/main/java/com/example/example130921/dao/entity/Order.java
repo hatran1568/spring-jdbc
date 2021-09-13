@@ -1,5 +1,9 @@
 package com.example.example130921.dao.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +14,9 @@ import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,42 +34,12 @@ public class Order {
     @Column(name = "order_date")
     private Date orderDate;
 
-    public Order(int id, Employee employee, Customer customer, Date orderDate) {
-        this.id = id;
-        this.employee = employee;
-        this.customer = customer;
-        this.orderDate = orderDate;
-    }
+    @Column(name = "created")
+    private Date created;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "modified")
+    private Date modified;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }

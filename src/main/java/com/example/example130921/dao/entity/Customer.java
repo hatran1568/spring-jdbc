@@ -1,54 +1,38 @@
 package com.example.example130921.dao.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    private int id;
+    private int customerId;
 
     @Column(name = "customer_name")
-    private String name;
+    private String customerName;
 
     @Column
     private String phone;
 
-    public Customer() {
-    }
+    @Column(name = "created")
+    private Date created;
 
-    public Customer(int id, String name, String phone) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-    }
+    @Column(name = "modified")
+    private Date modified;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }

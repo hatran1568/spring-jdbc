@@ -7,13 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface OrderRepository {
     Optional<List<Order>> getAllOrders();
 
-    Optional<Order> findById();
+    Optional<Order> findById(int id);
 
-    void add();
+    void add(Order o);
 
     void deleteById();
 
