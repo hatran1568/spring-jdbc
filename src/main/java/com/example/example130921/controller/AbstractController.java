@@ -7,9 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
+import java.util.Optional;
 
-public abstract class AbstractController<S> {
-//    @Autowired
-//    @Qualifier("service")
-//    protected S service;
+public abstract class AbstractController<s> {
+
+    protected s service;
+
+    protected <T> ResponseEntity<T> response(Optional<T> response) {
+        return new ResponseEntity<T>((T) response, HttpStatus.OK);
+    }
 }

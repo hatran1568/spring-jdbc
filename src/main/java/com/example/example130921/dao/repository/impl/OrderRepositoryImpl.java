@@ -49,9 +49,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
 
     @Override
     public void add(Order order) {
-        String sql = "INSERT INTO order(customer_id, employee_id, order_date, created, modified, is_deleted)" +
-                " VALUE(?,?,?,NOW(),NOW(),0)";
-        jdbcTemplate.update(sql, order.getCustomer().getCustomerId(), order.getEmployee().getId(), order.getOrderDate());
+
     }
 
     @Override

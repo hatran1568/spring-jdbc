@@ -13,33 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
-    @Column(name = "order_date")
+    private int orderId;
+    private int employeeId;
+    private int customerId;
     private Date orderDate;
-
-    @Column(name = "created")
     private Date created;
-
-    @Column(name = "modified")
     private Date modified;
-
-    @Column(name = "is_deleted")
     private Boolean isDeleted;
 }

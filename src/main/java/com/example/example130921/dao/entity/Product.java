@@ -13,32 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
-    private int id;
-
-    @Column(name = "product_name")
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @Column(name = "unit_price")
+    private int productId;
+    private String productName;
+    private int categoryId;
     private Double unitPrice;
-
-    @Column(name = "created")
     private Date created;
-
-    @Column(name = "modified")
     private Date modified;
-
-    @Column(name = "is_deleted")
     private Boolean isDeleted;
 }

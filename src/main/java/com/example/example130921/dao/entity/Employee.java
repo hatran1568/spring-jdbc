@@ -11,31 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id")
-    private int id;
-
-    @Column(name = "employee_name")
-    private String name;
-
-    @Column
+    private int employeeId;
+    private String employeeName;
     private String phone;
-
-    @Column
     private Date dob;
-
-    @Column(name = "created")
     private Date created;
-
-    @Column(name = "modified")
     private Date modified;
-
-    @Column(name = "is_deleted")
     private Boolean isDeleted;
 }

@@ -15,8 +15,6 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController extends AbstractController<OrderService>{
 
-    @Autowired
-    private OrderService service;
 
     @GetMapping(value = "")
     public List<Order> getOrders(){
