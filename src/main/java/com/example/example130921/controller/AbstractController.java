@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public abstract class AbstractController<s> {
 
+    @Autowired
     protected s service;
 
     protected <T> ResponseEntity<T> response(Optional<T> response) {
