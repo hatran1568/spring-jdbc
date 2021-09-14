@@ -2,16 +2,16 @@ package com.example.example130921.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerResponse {
+public class OrderResponse {
+    private int orderId;
     private int customerId;
-    private String customerName;
-    private String phone;
-
+    private int employeeId;
+    private Date orderDate;
 }

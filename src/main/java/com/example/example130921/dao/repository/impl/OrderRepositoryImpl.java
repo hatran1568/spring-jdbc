@@ -18,42 +18,43 @@ import java.util.Optional;
 @Repository
 public class OrderRepositoryImpl extends AbstractRepository implements OrderRepository {
 
-    @Autowired
-    @Qualifier("dataSource")
-    protected DataSource dataSource;
-
-    @Autowired
-    protected JdbcTemplate jdbcTemplate;
-
     @Override
     public Optional<List<Order>> getAllOrders() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(Order.class));
-        sql.append(" FROM ").append(getSimpleNameTable(Order.class));
+        sql.append(" FROM `order`");
         List<Order> orders = jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(Order.class));
         return Optional.ofNullable(orders);
     }
 
     @Override
     public Optional<Order> findById(int id) {
-
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(Order.class));
-        sql.append(" FROM ").append(getSimpleNameTable(Order.class));
-        sql.append(" WHERE id = :id");
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        Order order = jdbcTemplate.queryForObject(sql.toString(), Order.class, namedParameters);
+        sql.append(" FROM `order`");
+        sql.append(" WHERE order_id = ?");
+        Order order = jdbcTemplate.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Order.class), new Object[]{id});
         return Optional.ofNullable(order);
 
     }
 
     @Override
     public void add(Order order) {
-
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO `order`(customer_id, employee_id, order_date)");
+        sql.append(" VALUE(?,?,?)");
+        jdbcTemplate.update(sql.toString(),order.getCustomerId(), order.getEmployeeId(), order.getOrderDate());
     }
 
     @Override
-    public void deleteById() {
+    public void deleteById(int id) {
+        String sql = "UPDATE `order` SET is_deleted = 1 WHERE order_id = ?";
+        jdbcTemplate.update(sql,id);
+    }
 
+    @Override
+    public void updateById(int id, Order order) {
+        String sql = "UPDATE `order` SET customer_id = ?, employee_id = ?, order_date = ?, modified = NOW()";
+        jdbcTemplate.update(sql, order.getCustomerId(), order.getEmployeeId(), order.getOrderDate());
     }
 }

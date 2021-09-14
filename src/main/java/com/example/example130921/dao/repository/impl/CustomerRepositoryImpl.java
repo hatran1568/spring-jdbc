@@ -30,7 +30,7 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
         sql.append(" FROM ").append(getSimpleNameTable(Customer.class));
         sql.append(" WHERE customer_id = ?");
 
-        Customer customer = jdbcTemplate.queryForObject(sql.toString(), Customer.class, new Integer[]{id});
+        Customer customer = jdbcTemplate.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Customer.class), new Integer[]{id});
         return Optional.ofNullable(customer);
     }
 }

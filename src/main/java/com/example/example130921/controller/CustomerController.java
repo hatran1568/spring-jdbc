@@ -1,6 +1,7 @@
 package com.example.example130921.controller;
 
 import com.example.example130921.dao.entity.Customer;
+import com.example.example130921.service.CustomerService;
 import com.example.example130921.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
-public class CustomerController extends AbstractController<CustomerServiceImpl>{
+public class CustomerController extends AbstractController<CustomerService>{
 
     @GetMapping("")
     public ResponseEntity<?> getAllCustomers(){

@@ -1,28 +1,19 @@
 package com.example.example130921.service;
 
 import com.example.example130921.dao.entity.Order;
-import com.example.example130921.dao.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.example130921.dto.request.OrderRequest;
+import com.example.example130921.dto.response.OrderResponse;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class OrderService {
+public interface OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    Optional<List<OrderResponse>> getAllOrders();
 
-    public Optional<List<Order>> getAllOrders(){
-        return orderRepository.getAllOrders();
-    }
+    Optional<OrderResponse> getById(int orderId);
 
-    public Optional<Order> findById(int id){
-        return orderRepository.findById(id);
-    }
+    void add(Order order);
 
-    public void add(Order order){
-        orderRepository.add(order);
-    }
+    void deleteById(int orderId);
 }
