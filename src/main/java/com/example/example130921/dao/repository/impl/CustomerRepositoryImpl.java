@@ -1,12 +1,9 @@
 package com.example.example130921.dao.repository.impl;
 
 import com.example.example130921.dao.entity.Customer;
-import com.example.example130921.dao.entity.Order;
 import com.example.example130921.dao.repository.AbstractRepository;
 import com.example.example130921.dao.repository.CustomerRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,4 +30,13 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
         Customer customer = jdbcTemplate.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Customer.class), new Integer[]{id});
         return Optional.ofNullable(customer);
     }
+
+    @Override
+    public List<Integer> getIdList() {
+        String sql = "SELECT customer_id FROM customer";
+        List<Integer> idList = jdbcTemplate.queryForList(sql, Integer.class);
+        return idList;
+    }
+
+
 }

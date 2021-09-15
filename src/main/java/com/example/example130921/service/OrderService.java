@@ -13,7 +13,7 @@ public interface OrderService {
 
     Optional<OrderResponse> getById(int orderId);
 
-    void add(Order order);
+    void add(OrderRequest order);
 
     void deleteById(int orderId);
 }

@@ -48,8 +48,8 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
     }
 
     @Override
-    public void add(Order order) {
-        orderRepository.add(order);
+    public void add(OrderRequest orderRequest) {
+        orderRepository.add(modelMapper.map(orderRequest, Order.class));
     }
 
     @Override

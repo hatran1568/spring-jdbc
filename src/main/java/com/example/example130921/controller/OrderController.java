@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,8 +31,8 @@ public class OrderController extends AbstractController<OrderServiceImpl>{
     }
 
     @PostMapping(value = "")
-    public void add(@RequestBody OrderRequest orderRequest){
-        service.add(modelMapper.map(orderRequest, Order.class));
+    public void add(@Valid @RequestBody OrderRequest orderRequest){
+        service.add(orderRequest);
     }
 
     @DeleteMapping(value = "{id}")
