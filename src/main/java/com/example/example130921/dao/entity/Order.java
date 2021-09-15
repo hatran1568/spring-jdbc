@@ -21,9 +21,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    private int orderId;
-    private int customerId;
-    private int employeeId;
+    private Integer orderId;
+    private Integer customerId;
+    private Integer employeeId;
     private Date orderDate;
     private Date created;
     private Date modified;

@@ -36,5 +36,13 @@ public class CustomerServiceImpl extends AbstractService implements CustomerServ
         return Optional.of(new CustomerResponse(customer.getCustomerId(), customer.getCustomerName(), customer.getPhone()));
     }
 
+    @Override
+    public boolean isValid(int customerId) {
+        if(customerRepository.getIdList().isPresent()){
+            return customerRepository.getIdList().get().contains(customerId);
+        }
+        return false;
+    }
+
 
 }

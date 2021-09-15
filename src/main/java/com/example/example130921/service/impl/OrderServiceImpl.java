@@ -6,11 +6,14 @@ import com.example.example130921.dto.request.OrderRequest;
 import com.example.example130921.dto.response.OrderResponse;
 import com.example.example130921.exception.ResourceNotFoundException;
 import com.example.example130921.service.AbstractService;
+import com.example.example130921.service.CustomerService;
+import com.example.example130921.service.EmployeeService;
 import com.example.example130921.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +26,12 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     public Optional<List<OrderResponse>> getAllOrders(){
         List<Order> orders = orderRepository.getAllOrders().orElseThrow(() -> {
@@ -49,7 +58,9 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Override
     public void add(OrderRequest orderRequest) {
-        orderRepository.add(modelMapper.map(orderRequest, Order.class));
+        if (customerService.isValid(orderRequest.getCustomerId()) && employeeService.isValid(orderRequest.getEmployeeId())){
+            orderRepository.add(modelMapper.map(orderRequest, Order.class));
+        }
     }
 
     @Override

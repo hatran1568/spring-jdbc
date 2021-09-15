@@ -32,10 +32,10 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
     }
 
     @Override
-    public List<Integer> getIdList() {
+    public Optional<List<Integer>> getIdList() {
         String sql = "SELECT customer_id FROM customer";
         List<Integer> idList = jdbcTemplate.queryForList(sql, Integer.class);
-        return idList;
+        return Optional.ofNullable(idList);
     }
 
 

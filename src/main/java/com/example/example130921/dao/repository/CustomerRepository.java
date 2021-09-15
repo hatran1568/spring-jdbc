@@ -10,5 +10,5 @@ public interface CustomerRepository {
 
     Optional<Customer> findById(int id);
 
-    List<Integer> getIdList();
+    Optional<List<Integer>> getIdList();
 }

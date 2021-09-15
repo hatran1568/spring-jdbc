@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface CustomerService {
     Optional<List<CustomerResponse>> getCustomers();
     Optional<CustomerResponse> getById(int id);
+    boolean isValid(int customerId);
 }
