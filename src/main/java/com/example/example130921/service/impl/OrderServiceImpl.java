@@ -66,12 +66,8 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 //        }
         int reqCustomerId = orderRequest.getCustomerId();
         int reqEmployeeId = orderRequest.getEmployeeId();
-        if (!customerService.isValid(reqCustomerId)){
-            throw new ConstraintViolationException("Foreign key constraint not satisfied with customerId: " + reqCustomerId);
-        } else if (!employeeService.isValid(reqEmployeeId)){
-            throw new ConstraintViolationException("Foreign key constraint not satisfied with employeeId: " + reqEmployeeId);
-        } else {
-            orderRepository.add(modelMapper.map(orderRequest,Order.class));
+        if (!customerService.isValid(reqCustomerId) && employeeService.isValid(reqEmployeeId)) {
+            orderRepository.add(modelMapper.map(orderRequest, Order.class));
         }
     }
 

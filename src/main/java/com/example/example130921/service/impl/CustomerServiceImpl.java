@@ -3,10 +3,12 @@ package com.example.example130921.service.impl;
 import com.example.example130921.dao.entity.Customer;
 import com.example.example130921.dao.repository.CustomerRepository;
 import com.example.example130921.dto.response.CustomerResponse;
+import com.example.example130921.exception.ConstraintViolationException;
 import com.example.example130921.exception.ResourceNotFoundException;
 import com.example.example130921.service.AbstractService;
 import com.example.example130921.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,8 +40,13 @@ public class CustomerServiceImpl extends AbstractService implements CustomerServ
 
     @Override
     public boolean isValid(int customerId) {
-        Optional<Customer> customer = customerRepository.findById(customerId);
-        return customer.isPresent();
+        try {
+            Optional<Customer> customer = customerRepository.findById(customerId);
+            return customer.isPresent();
+        } catch (EmptyResultDataAccessException e){
+            throw new ConstraintViolationException("Foreign key constraint not satisfied with customerId: " + customerId);
+        }
+
     }
 
 
