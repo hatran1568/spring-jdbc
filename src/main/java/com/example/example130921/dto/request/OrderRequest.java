@@ -13,7 +13,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class OrderRequest {
     @NotNull(message = "customer id cannot be empty")
     private Integer customerId;

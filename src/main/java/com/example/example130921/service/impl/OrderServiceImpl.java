@@ -60,10 +60,10 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Override
     public void add(OrderRequest orderRequest) {
-//        String message = validator.validateRequestThenReturnMessage(orderRequest);
-//        if (!StringUtils.isEmpty(message)) {
-//            throw new RequestParamInvalidException(message);
-//        }
+        String message = validator.validateRequestThenReturnMessage(orderRequest);
+        if (!StringUtils.isEmpty(message)) {
+            throw new RequestParamInvalidException(message);
+        }
         int reqCustomerId = orderRequest.getCustomerId();
         int reqEmployeeId = orderRequest.getEmployeeId();
         if (!customerService.isValid(reqCustomerId) && employeeService.isValid(reqEmployeeId)) {

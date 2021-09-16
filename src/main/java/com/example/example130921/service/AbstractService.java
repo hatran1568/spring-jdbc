@@ -12,8 +12,8 @@ public abstract class AbstractService {
     @Autowired
     Environment env;
 
-//    @Autowired
-//    protected ObjectValidator validator;
+    @Autowired
+    protected ObjectValidator validator;
 
     protected ObjectMapper objectMapper;
 
