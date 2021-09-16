@@ -4,6 +4,8 @@ import com.example.example130921.dao.entity.Order;
 import com.example.example130921.dao.repository.OrderRepository;
 import com.example.example130921.dto.request.OrderRequest;
 import com.example.example130921.dto.response.OrderResponse;
+import com.example.example130921.exception.ConstraintViolationException;
+import com.example.example130921.exception.RequestParamInvalidException;
 import com.example.example130921.exception.ResourceNotFoundException;
 import com.example.example130921.service.AbstractService;
 import com.example.example130921.service.CustomerService;
@@ -12,8 +14,8 @@ import com.example.example130921.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,8 +60,18 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Override
     public void add(OrderRequest orderRequest) {
-        if (customerService.isValid(orderRequest.getCustomerId()) && employeeService.isValid(orderRequest.getEmployeeId())){
-            orderRepository.add(modelMapper.map(orderRequest, Order.class));
+//        String message = validator.validateRequestThenReturnMessage(orderRequest);
+//        if (!StringUtils.isEmpty(message)) {
+//            throw new RequestParamInvalidException(message);
+//        }
+        int reqCustomerId = orderRequest.getCustomerId();
+        int reqEmployeeId = orderRequest.getEmployeeId();
+        if (!customerService.isValid(reqCustomerId)){
+            throw new ConstraintViolationException("Foreign key constraint not satisfied with customerId: " + reqCustomerId);
+        } else if (!employeeService.isValid(reqEmployeeId)){
+            throw new ConstraintViolationException("Foreign key constraint not satisfied with employeeId: " + reqEmployeeId);
+        } else {
+            orderRepository.add(modelMapper.map(orderRequest,Order.class));
         }
     }
 

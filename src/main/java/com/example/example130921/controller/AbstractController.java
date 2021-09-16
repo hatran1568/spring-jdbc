@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 import java.util.Optional;
 
-public abstract class AbstractController<S> {
+public abstract class AbstractController<s> {
 
     @Autowired
-    protected S service;
+    protected s service;
 
     @Autowired
     protected ModelMapper modelMapper;

@@ -26,4 +26,18 @@ public class Example130921Application {
 		return modelMapper;
 	}
 
+//	@Bean
+//	public MessageSource messageSource() {
+//		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+//		messageSource.setBasenames("classpath:messages");
+//		messageSource.setDefaultEncoding("UTF-8");
+//		return messageSource;
+//	}
+//
+//	@Bean(name = "validator")
+//	public LocalValidatorFactoryBean getValidator() {
+//		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+//		bean.setValidationMessageSource(messageSource());
+//		return bean;
+//	}
 }

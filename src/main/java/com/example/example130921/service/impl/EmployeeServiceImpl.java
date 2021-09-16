@@ -1,10 +1,13 @@
 package com.example.example130921.service.impl;
 
+import com.example.example130921.dao.entity.Employee;
 import com.example.example130921.dao.repository.EmployeeRepository;
 import com.example.example130921.service.AbstractService;
 import com.example.example130921.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl extends AbstractService implements EmployeeService {
@@ -14,10 +17,7 @@ public class EmployeeServiceImpl extends AbstractService implements EmployeeServ
 
     @Override
     public boolean isValid(int employeeId) {
-        if (employeeRepository.getIdList().isPresent()){
-            return employeeRepository.getIdList().get().contains(employeeId);
-        }
-        return false;
-
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        return employee.isPresent();
     }
 }

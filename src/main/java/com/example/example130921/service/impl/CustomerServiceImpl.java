@@ -38,10 +38,8 @@ public class CustomerServiceImpl extends AbstractService implements CustomerServ
 
     @Override
     public boolean isValid(int customerId) {
-        if(customerRepository.getIdList().isPresent()){
-            return customerRepository.getIdList().get().contains(customerId);
-        }
-        return false;
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        return customer.isPresent();
     }
 
 
