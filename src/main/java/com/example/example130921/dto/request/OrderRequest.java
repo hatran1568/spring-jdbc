@@ -15,10 +15,10 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class OrderRequest {
-    @NotEmpty(message = "customer id cannot be empty")
+    @NotNull(message = "customer id cannot be empty")
     private Integer customerId;
 
-    @NotEmpty(message = "employee id cannot be empty")
+    @NotNull(message = "employee id cannot be empty")
     private Integer employeeId;
 
     @FutureOrPresent
