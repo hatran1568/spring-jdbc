@@ -15,6 +15,7 @@ public class OrderDetailRepositoryImpl extends AbstractRepository implements Ord
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(OrderDetail.class));
         sql.append(" FROM ").append(getSimpleNameTable(OrderDetail.class));
+        sql.append(" WHERE is_deleted = 0");
         List<OrderDetail> orderDetails = jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(OrderDetail.class));
         return Optional.ofNullable(orderDetails);
     }
@@ -24,7 +25,7 @@ public class OrderDetailRepositoryImpl extends AbstractRepository implements Ord
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(OrderDetail.class));
         sql.append(" FROM ").append(getSimpleNameTable(OrderDetail.class));
-        sql.append(" WHERE order_id = ?");
+        sql.append(" WHERE order_id = ? AND is_deleted = 0");
 
         List<OrderDetail> orderDetails = jdbcTemplate.query(sql.toString(),
                                                             new BeanPropertyRowMapper<>(OrderDetail.class),
@@ -37,7 +38,7 @@ public class OrderDetailRepositoryImpl extends AbstractRepository implements Ord
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(OrderDetail.class));
         sql.append(" FROM ").append(getSimpleNameTable(OrderDetail.class));
-        sql.append(" WHERE order_id = ? AND product_id = ?");
+        sql.append(" WHERE order_id = ? AND product_id = ? AND is_deleted = 0");
 
         OrderDetail orderDetail = jdbcTemplate.queryForObject(sql.toString(),
                 new BeanPropertyRowMapper<>(OrderDetail.class),

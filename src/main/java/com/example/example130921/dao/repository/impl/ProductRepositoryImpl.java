@@ -20,7 +20,7 @@ public class ProductRepositoryImpl extends AbstractRepository implements Product
     }
 
     @Override
-    public Optional<Product> getById(int productId) {
+    public Optional<Product> findById(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(Product.class));
         sql.append(" FROM ").append(getSimpleNameTable(Product.class));

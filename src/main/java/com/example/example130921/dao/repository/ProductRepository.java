@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ProductRepository {
     Optional<List<Product>> getAllProducts();
 
-    Optional<Product> getById(int productId);
+    Optional<Product> findById(int productId);
 
     Optional<List<Integer>> getIdList();
 }

@@ -23,6 +23,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(Order.class));
         sql.append(" FROM `order`");
+        sql.append(" WHERE is_deleted = 0");
         List<Order> orders = jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(Order.class));
         return Optional.ofNullable(orders);
     }
@@ -32,7 +33,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(attributeNamesForSelect(Order.class));
         sql.append(" FROM `order`");
-        sql.append(" WHERE order_id = ?");
+        sql.append(" WHERE order_id = ? AND is_deleted = 0");
         Order order = jdbcTemplate.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Order.class), new Object[]{id});
         return Optional.ofNullable(order);
 

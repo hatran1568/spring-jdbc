@@ -16,4 +16,6 @@ public interface OrderService {
     void add(OrderRequest order);
 
     void deleteById(int orderId);
+
+    void updateById(int orderId, OrderRequest orderRequest);
 }

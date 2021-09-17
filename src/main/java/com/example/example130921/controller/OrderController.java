@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
-@Validated
 public class OrderController extends AbstractController<OrderServiceImpl>{
-
 
     @GetMapping(value = "")
     public ResponseEntity<?> getOrders(){
@@ -33,12 +32,17 @@ public class OrderController extends AbstractController<OrderServiceImpl>{
     }
 
     @PostMapping(value = "")
-    public void add(@Valid @RequestBody OrderRequest orderRequest){
+    public void add(@RequestBody OrderRequest orderRequest){
         service.add(orderRequest);
     }
 
     @DeleteMapping(value = "{id}")
     public void delete(@PathVariable int id){
         service.deleteById(id);
+    }
+
+    @PutMapping(value = "{id}")
+    public void updateById(@PathVariable int id, @RequestBody OrderRequest orderRequest){
+        service.updateById(id, orderRequest);
     }
 }

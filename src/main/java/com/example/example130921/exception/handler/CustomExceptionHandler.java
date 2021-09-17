@@ -20,8 +20,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    /*@ExceptionHandler({MethodArgumentNotValidException.class})
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    @ExceptionHandler({RequestParamInvalidException.class})
+    public ResponseEntity<ErrorResponse> handleRequestParamInvalidException(RequestParamInvalidException e) {
         return new ResponseEntity<>(new ErrorResponse("E02", e.getMessage()), null, HttpStatus.BAD_REQUEST);
-    }*/
+    }
 }

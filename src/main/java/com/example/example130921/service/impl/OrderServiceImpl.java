@@ -64,9 +64,10 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
         if (!StringUtils.isEmpty(message)) {
             throw new RequestParamInvalidException(message);
         }
-        int reqCustomerId = orderRequest.getCustomerId();
-        int reqEmployeeId = orderRequest.getEmployeeId();
-        if (!customerService.isValid(reqCustomerId) && employeeService.isValid(reqEmployeeId)) {
+
+        boolean isValidCustomerId = customerService.isValid(orderRequest.getCustomerId());
+        boolean isValidEmployeeId = employeeService.isValid(orderRequest.getEmployeeId());
+        if (isValidCustomerId && isValidEmployeeId) {
             orderRepository.add(modelMapper.map(orderRequest, Order.class));
         }
     }
@@ -74,6 +75,20 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
     @Override
     public void deleteById(int orderId) {
         orderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public void updateById(int orderId, OrderRequest orderRequest) {
+        String message = validator.validateRequestThenReturnMessage(orderRequest);
+        if (!StringUtils.isEmpty(message)) {
+            throw new RequestParamInvalidException(message);
+        }
+
+        boolean isValidCustomerId = customerService.isValid(orderRequest.getCustomerId());
+        boolean isValidEmployeeId = employeeService.isValid(orderRequest.getEmployeeId());
+        if (isValidCustomerId && isValidEmployeeId) {
+            orderRepository.updateById(orderId, modelMapper.map(orderRequest, Order.class));
+        }
     }
 
 
