@@ -16,7 +16,7 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
     private ProductRepository productRepository;
 
     @Override
-    public boolean isValid(int productId) {
+    public boolean isValidId(int productId) {
         try{
             Optional<Product> product = productRepository.findById(productId);
             return product.isPresent();

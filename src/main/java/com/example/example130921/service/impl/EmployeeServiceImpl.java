@@ -18,7 +18,7 @@ public class EmployeeServiceImpl extends AbstractService implements EmployeeServ
     private EmployeeRepository employeeRepository;
 
     @Override
-    public boolean isValid(int employeeId) {
+    public boolean isValidId(int employeeId) {
         try{
             Optional<Employee> employee = employeeRepository.findById(employeeId);
             return employee.isPresent();

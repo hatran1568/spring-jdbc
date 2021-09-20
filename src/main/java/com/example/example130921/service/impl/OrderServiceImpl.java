@@ -4,17 +4,15 @@ import com.example.example130921.dao.entity.Order;
 import com.example.example130921.dao.repository.OrderRepository;
 import com.example.example130921.dto.request.OrderRequest;
 import com.example.example130921.dto.response.OrderResponse;
-import com.example.example130921.exception.ConstraintViolationException;
 import com.example.example130921.exception.RequestParamInvalidException;
 import com.example.example130921.exception.ResourceNotFoundException;
 import com.example.example130921.service.AbstractService;
 import com.example.example130921.service.CustomerService;
 import com.example.example130921.service.EmployeeService;
 import com.example.example130921.service.OrderService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +23,6 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Autowired
     private CustomerService customerService;
@@ -61,16 +56,17 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
     @Override
     public void add(OrderRequest orderRequest) {
         String message = validator.validateRequestThenReturnMessage(orderRequest);
-        if (!StringUtils.isEmpty(message)) {
+        if (!ObjectUtils.isEmpty(message)) {
             throw new RequestParamInvalidException(message);
         }
 
-        boolean isValidCustomerId = customerService.isValid(orderRequest.getCustomerId());
-        boolean isValidEmployeeId = employeeService.isValid(orderRequest.getEmployeeId());
+        boolean isValidCustomerId = customerService.isValidId(orderRequest.getCustomerId());
+        boolean isValidEmployeeId = employeeService.isValidId(orderRequest.getEmployeeId());
         if (isValidCustomerId && isValidEmployeeId) {
-            orderRepository.add(modelMapper.map(orderRequest, Order.class));
+            orderRepository.add(objectMapper.convertValue(orderRequest, Order.class));
         }
     }
+
 
     @Override
     public void deleteById(int orderId) {
@@ -80,14 +76,14 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
     @Override
     public void updateById(int orderId, OrderRequest orderRequest) {
         String message = validator.validateRequestThenReturnMessage(orderRequest);
-        if (!StringUtils.isEmpty(message)) {
+        if (!ObjectUtils.isEmpty(message)) {
             throw new RequestParamInvalidException(message);
         }
 
-        boolean isValidCustomerId = customerService.isValid(orderRequest.getCustomerId());
-        boolean isValidEmployeeId = employeeService.isValid(orderRequest.getEmployeeId());
+        boolean isValidCustomerId = customerService.isValidId(orderRequest.getCustomerId());
+        boolean isValidEmployeeId = employeeService.isValidId(orderRequest.getEmployeeId());
         if (isValidCustomerId && isValidEmployeeId) {
-            orderRepository.updateById(orderId, modelMapper.map(orderRequest, Order.class));
+            orderRepository.updateById(orderId, objectMapper.convertValue(orderRequest, Order.class));
         }
     }
 

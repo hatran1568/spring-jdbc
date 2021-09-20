@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtils {
+public class StringUtils extends org.springframework.util.StringUtils {
     public static String snakeCaseToCamelCase(String strInput) {
         StringTokenizer token = new StringTokenizer(strInput, "_");
         StringBuilder str = new StringBuilder(token.nextToken());

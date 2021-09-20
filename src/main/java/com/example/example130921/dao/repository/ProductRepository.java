@@ -10,5 +10,10 @@ public interface ProductRepository {
 
     Optional<Product> findById(int productId);
 
-    Optional<List<Integer>> getIdList();
+    void add(Product product);
+
+    void updateById(int productId, Product product);
+
+    void deleteById(int productId);
+
 }

@@ -32,9 +32,34 @@ public class ProductRepositoryImpl extends AbstractRepository implements Product
     }
 
     @Override
-    public Optional<List<Integer>> getIdList() {
-        String sql = "SELECT product_id FROM product";
-        List<Integer> idList = jdbcTemplate.queryForList(sql, Integer.class);
-        return Optional.ofNullable(idList);
+    public void add(Product product) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO ").append(getSimpleNameTable(Product.class));
+        sql.append("(product_name, category_id, unit_price)");
+        sql.append(" VALUES (?, ?, ?)");
+        jdbcTemplate.update(sql.toString(), new Object[]{product.getProductName(), product.getCategoryId(), product.getUnitPrice()});
     }
+
+    @Override
+    public void updateById(int productId, Product product) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE ").append(getSimpleNameTable(Product.class));
+        sql.append("SET product_name = ?, category_id = ?, unit_price = ? ");
+        sql.append(" WHERE product_id = ?");
+        jdbcTemplate.update(sql.toString(), new Object[]{product.getProductName(),
+                                                        product.getCategoryId(),
+                                                        product.getUnitPrice(),
+                                                        productId});
+    }
+
+    @Override
+    public void deleteById(int productId) {
+        String sql = "UPDATE product SET is_deleted = 1 WHERE product_id = ?";
+        jdbcTemplate.update(sql, productId);
+
+    }
+
+
+
+
 }
